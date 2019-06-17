@@ -12,8 +12,10 @@ function createWindow () {
     width: 800,
     height: 600,
     webPreferences: {
-    preload: path.join(__dirname, 'preload.js'),
+      nodeIntegration: true,
+   // preload: path.join(__dirname, 'preload.js'),
       webSecurity: false
+
     }
   })
 
@@ -21,7 +23,7 @@ function createWindow () {
   mainWindow.loadFile('index.html')
 
   // Open the DevTools.
-  // mainWindow.webContents.openDevTools()
+   mainWindow.webContents.openDevTools()
 
   // Emitted when the window is closed.
   mainWindow.on('closed', function () {
@@ -52,3 +54,20 @@ app.on('activate', function () {
 
 // In this file you can include the rest of your app's specific main process
 // code. You can also put them in separate files and require them here.
+
+const {homedir} = require('os');
+const {readdirSync} = require('fs');
+const { ipcMain } = require('electron')
+
+
+//On peut aussi écrire de la manière suivante.
+//const homedir2 = require('os').homedir;
+//console.log(homedir2());
+
+
+ipcMain.on('getHomeDirList', (event, arg) => {
+  const listHomeDir = readdirSync(homedir());
+  event.reply('getHomeDirList-reply', listHomeDir)
+})
+
+
