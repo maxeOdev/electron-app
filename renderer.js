@@ -1,6 +1,7 @@
 const { ipcRenderer } = require('electron');
 const btn = document.getElementById('homedir-list');
 let path = '';
+const content = document.getElementById('syncReponse');
 //ipc call
 
 
@@ -10,14 +11,19 @@ btn.addEventListener('click', function () {
 
 //ipc replay
 ipcRenderer.on('getList-reply', (event, arg) => {
-    let list ='<ul class="list-group">';
+
+    var ul = document.createElement("ul");
+    ul.className = 'list-group';
+    content.appendChild(ul);
+
     arg.forEach(element => {
         if(element.indexOf('.', 0)){
-            list+='<li class="list-group-item">'+element+'</li>';
+            var li = document.createElement("li");
+            li.className = 'list-group-item';
+            li.innerHTML = element;
+            ul.appendChild(li);
         }
     });
-    list+='</ul>';   
-document.getElementById('syncReponse').innerHTML = list;  
 })
 
 
