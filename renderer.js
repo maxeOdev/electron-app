@@ -1,11 +1,11 @@
 const { ipcRenderer } = require('electron');
 const btn = document.getElementById('homedir-list');
-
+let path = '';
 //ipc call
 
 
 btn.addEventListener('click', function () {
-    ipcRenderer.send('getList');
+    ipcRenderer.send('getHomePath');
 })
 
 //ipc replay
@@ -18,4 +18,10 @@ ipcRenderer.on('getList-reply', (event, arg) => {
     });
     list+='</ul>';   
 document.getElementById('syncReponse').innerHTML = list;  
+})
+
+
+ipcRenderer.on('getHomePath-reply', (event, arg) => {
+    this.path = arg;
+    ipcRenderer.send('getList', this.path);
 })

@@ -63,12 +63,15 @@ const { ipcMain } = require('electron')
 //On peut aussi écrire de la manière suivante.
 //const homedir2 = require('os').homedir;
 //console.log(homedir2());
+ipcMain.on('getHomePath', (event, arg) => {
+  const homeDir = homedir();
+  event.reply('getHomePath-reply', homeDir)
+})
 
 
 ipcMain.on('getList', (event, arg) => {
-  const homeDir = homedir();
-  const listHomeDir = readdirSync((homeDir));
-  event.reply('getList-reply', listHomeDir)
+  const list = readdirSync(arg);
+  event.reply('getList-reply', list);
 })
 
 
