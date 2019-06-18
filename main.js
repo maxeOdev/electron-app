@@ -65,9 +65,10 @@ const { ipcMain } = require('electron')
 //console.log(homedir2());
 
 
-ipcMain.on('getHomeDirList', (event, arg) => {
-  const listHomeDir = readdirSync(homedir());
-  event.reply('getHomeDirList-reply', listHomeDir)
+ipcMain.on('getList', (event, arg) => {
+  const homeDir = homedir();
+  const listHomeDir = readdirSync((homeDir));
+  event.reply('getList-reply', listHomeDir)
 })
 
 

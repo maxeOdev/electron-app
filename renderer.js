@@ -5,11 +5,18 @@
 const { ipcRenderer } = require('electron');
 const btn = document.getElementById('homedir-list');
 
+//call
 btn.addEventListener('click', function () {
-    ipcRenderer.send('getHomeDirList');
+    ipcRenderer.send('getList');
 })
 
-ipcRenderer.on('getHomeDirList-reply', (event, arg) => {
-document.getElementById('syncReponse').innerHTML = arg;
-   
+ipcRenderer.on('getList-reply', (event, arg) => {
+    let list ='<ul>';
+    arg.forEach(element => {
+        if(element.indexOf('.', 0)){
+            list+='<li>'+element+'</li>';
+        }
+    });
+    list+='</ul>';   
+document.getElementById('syncReponse').innerHTML = list;  
 })
