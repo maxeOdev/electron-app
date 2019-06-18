@@ -6,13 +6,13 @@ var path = "";
 const content = document.getElementById("syncReponse");
 
 //event listener
-btn.addEventListener("click", function() {
+btn.addEventListener("click", function () {
   //ipc call
   ipcRenderer.send("getHomePath");
 });
 
-//event listener
-btnReturn.addEventListener("click", function() {
+//event listener 
+btnReturn.addEventListener("click", function () {
   var splitter = path.split("/");
   var newPath = "";
   for (let index = 0; index < splitter.length - 1; index++) {
@@ -40,9 +40,16 @@ ipcRenderer.on("getList-reply", (event, arg) => {
   content.appendChild(ul);
 
   //event listener
-  ul.addEventListener("click", function(event) {
-    path += "/" + event.target.innerHTML;
-    ipcRenderer.send("getList", path);
+
+  ul.addEventListener("click", function (event) {
+    var element = event.target.className;
+    if (element.includes('file')) {
+      var filePath = path+'/'+event.target.innerHTML;
+      ipcRenderer.send('openFileWindow', filePath);
+    } else {
+      path += "/" + event.target.innerHTML;
+      ipcRenderer.send("getList", path);
+    }
   });
 
   arg.forEach(element => {
