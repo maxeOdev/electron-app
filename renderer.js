@@ -13,7 +13,6 @@ btn.addEventListener("click", function() {
 
 //event listener
 btnReturn.addEventListener("click", function() {
-  console.log(path);
   var splitter = path.split("/");
   var newPath = "";
   for (let index = 0; index < splitter.length - 1; index++) {
@@ -25,8 +24,6 @@ btnReturn.addEventListener("click", function() {
   }
   path = newPath;
   ipcRenderer.send("getList", path);
-  console.log(newPath);
-
 });
 
 //ipc replay
@@ -59,7 +56,6 @@ ipcRenderer.on("getList-reply", (event, arg) => {
         li.className = "list-group-item folder";
         li.innerHTML = element;
         ul.appendChild(li);
-        console.log(elementPath);
       } else {
         var li = document.createElement("li");
         li.className = "list-group-item file";
