@@ -72,6 +72,7 @@ ipcMain.on('getHomePath', (event, arg) => {
 ipcMain.on('getList', (event, arg) => {
   const list = readdirSync(arg);
   event.reply('getList-reply', list);
+  
 })
 
 
