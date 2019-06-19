@@ -7,11 +7,14 @@ const path = require("path");
 let mainWindow;
 let fileDetailWindow;
 
+console.log(path.join(__dirname, 'icons/icons8-cocktail-50.png'));
+
 function createWindow() {
   // Create the browser window.
   mainWindow = new BrowserWindow({
     width: 800,
     height: 600,
+    icon: path.join(__dirname, 'icons/icons8-cocktail-50.png'),
     webPreferences: {
       nodeIntegration: true,
       // preload: path.join(__dirname, 'preload.js'),
@@ -23,7 +26,7 @@ function createWindow() {
   mainWindow.loadFile("index.html");
 
   // Open the DevTools.
-  mainWindow.webContents.openDevTools();
+  //mainWindow.webContents.openDevTools();
 
   // Emitted when the window is closed.
   mainWindow.on("closed", function() {
@@ -84,7 +87,7 @@ ipcMain.on("openFileWindow", (event, arg) => {
       webSecurity: false
     }
   });
-  fileDetailWindow.webContents.openDevTools();
+  //fileDetailWindow.webContents.openDevTools();
   fileDetailWindow.loadURL(
     "file:/Users/simonaliotti/Workspace/PERIODE PRO/electron/electron-quick-start/pages/file-detail.html"
   );
