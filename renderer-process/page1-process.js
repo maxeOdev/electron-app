@@ -1,11 +1,5 @@
 var fs = require("fs");
-const btn = document.getElementById("create-file");
 const btnSubmit = document.getElementById("submit");
-
-//btnSubmit.addEventListener("submit", function (event) {
-//event.preventDefault();
-// console.log(event);
-// });
 
 //Get datas from form with click event
 btnSubmit.addEventListener("click", function(event) {
@@ -16,4 +10,12 @@ btnSubmit.addEventListener("click", function(event) {
     if (err) throw err;
     console.log("Saved!");
   });
+
+  let myNotification = new Notification(name, {
+    body: content
+  });
+
+  myNotification.onclick = () => {
+    console.log("Notification clicked");
+  };
 });
