@@ -12,7 +12,7 @@ btnSubmit.addEventListener("click", function(event) {
   });
 
   let myNotification = new Notification(name, {
-    body: content
+    body: 'Fichier créé avec succès'
   });
 
   myNotification.onclick = () => {
